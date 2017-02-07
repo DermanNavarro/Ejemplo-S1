@@ -3,38 +3,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
         <ui:composition template="./../template/tempate.xhtml">
             <ui:define name="content">
+                <h:form>
+                    <p:inputText value="#{AvionBean.busqueda}" id="busquedaAviones"/>
+                    <p:commandButton icon="ui-icon-search" action="#{AvionBean.consultar()}"
+                                     update=":frmAviones:tblAviones"/>
+                </h:form>
                 <h:outputLabel value="AvionLista"/>
                 <f:view>
-                    <h:form>
-                        <h:commandButton value="Nuevo Avion" action="AvionForm"/>
+                    <h:form id="frmAviones">
+                        <p:growl autoUpdate="true" showDetail="true"/>
+                        <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+                        <p:commandButton value="Nuevo Avion" action="#{AvionBean.preparaNuevo()}"/><!--action="#AvionForm.xhtml?faces-redirect=true"/-->
                         <br></br><br></br>
                         <h1><h:outputText value="Lista de Aviones"/></h1>
-                        
-                        <h:dataTable value="#{AvionBean.aviones}" var="item">
-                            <h:column>
+
+                        <p:dataTable id="tblAviones" value="#{AvionBean.aviones}" var="item" paginator="true" rows="10"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
+                            <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Idavion"/>
+                                    <h:outputText value="Idavion"/> 
                                 </f:facet>
                                 <h:outputText value="#{item.idavion}"/>
-                            </h:column>
-                            <h:column>
+                            </p:column>
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Capacidad"/>
                                 </f:facet>
                                 <h:outputText value="#{item.capacidad}"/>
-                            </h:column>
-                            <h:column>
+                            </p:column>
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Descripcion"/>
                                 </f:facet>
                                 <h:outputText value="#{item.descripcion}"/>
-                            </h:column>
-                        </h:dataTable>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton icon="ui-icon-pencil" action="#{AvionBean.seleccionarAvion(item)}"/>
+                                <p:commandButton icon="ui-icon-trash" action="#{AvionBean.eliminarAvion(item)}" onclick="confirm('Esta seguro?')" update=":frmAviones:tblAviones"/>
+                            </p:column>
+                        </p:dataTable>
                     </h:form>
                 </f:view>
             </ui:define>

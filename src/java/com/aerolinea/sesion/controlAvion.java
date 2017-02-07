@@ -17,13 +17,29 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class controlAvion {
-    
+
     @EJB
-    private AvionFacade avionFacade; 
+    private AvionFacade avionFacade;
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    
-    public List<Avion> getAllAviones(){
+
+    public List<Avion> getAllAviones() {
         return avionFacade.findAll();
+    }
+
+    public void guardarAvion(Avion avion) {
+        avionFacade.create(avion);
+    }
+
+    public void modificarAvion(Avion avion) {
+        avionFacade.edit(avion);
+    }
+
+    public void eliminarAvion(Avion avion) {
+        avionFacade.remove(avion);
+    }
+
+    public List<Avion> consultarAviones(String desc) {
+        return avionFacade.consultarAviones(desc);
     }
 }

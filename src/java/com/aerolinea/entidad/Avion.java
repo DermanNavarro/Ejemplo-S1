@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Avion.findAll", query = "SELECT a FROM Avion a"),
     @NamedQuery(name = "Avion.findByIdavion", query = "SELECT a FROM Avion a WHERE a.idavion = :idavion"),
     @NamedQuery(name = "Avion.findByCapacidad", query = "SELECT a FROM Avion a WHERE a.capacidad = :capacidad"),
-    @NamedQuery(name = "Avion.findByDescripcion", query = "SELECT a FROM Avion a WHERE a.descripcion = :descripcion")})
+    @NamedQuery(name = "Avion.findByDescripcion", query = "SELECT a FROM Avion a WHERE a.descripcion like :descripcion")})
 public class Avion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,7 +45,7 @@ public class Avion implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "capacidad")
-    private int capacidad;
+    private Integer capacidad;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 70)
@@ -61,7 +61,7 @@ public class Avion implements Serializable {
         this.idavion = idavion;
     }
 
-    public Avion(Integer idavion, int capacidad, String descripcion) {
+    public Avion(Integer idavion, Integer capacidad, String descripcion) {
         this.idavion = idavion;
         this.capacidad = capacidad;
         this.descripcion = descripcion;
@@ -75,11 +75,11 @@ public class Avion implements Serializable {
         this.idavion = idavion;
     }
 
-    public int getCapacidad() {
+    public Integer getCapacidad() {
         return capacidad;
     }
 
-    public void setCapacidad(int capacidad) {
+    public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
     }
 

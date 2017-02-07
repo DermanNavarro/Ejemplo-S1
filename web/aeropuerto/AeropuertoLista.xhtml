@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./../template/tempate.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <p:inputText value="#{AeropuertoBean.busqueda}" id="busquedaAeropuertos">
+                        <p:ajax event="keyup" update=":frmAeropuertos:tblAeropuertos"/>
+                    </p:inputText>
+                </h:form>
+                
+                <f:view>
+                    <h:form id="frmAeropuertos">
+                        <p:growl autoUpdate="true" showDetail="true"/>
+                        <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+                        <p:commandButton value="Nuevo Aeropuerto" action="#{AeropuertoBean.preparaNuevo()}"/>
+                        <br></br><br></br>
+                        <h1><h:outputText value="Lista de Aeropuertos"/></h1>
+                        
+                        <p:dataTable id="tblAeropuertos" value="#{AeropuertoBean.aeropuertos}" var="item">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Idaeropuerto"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idaeropuerto}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Aeropuerto"/>
+                                </f:facet>
+                                <h:outputText value="#{item.aeropuerto}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Ciudad"/>
+                                </f:facet>
+                                <h:outputText value="#{item.ciudad}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Pais"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idpais.pais}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton icon="ui-icon-pencil" action="#{AeropuertoBean.seleccionarAeropuerto(item)}"/>
+                                <p:commandButton icon="ui-icon-trash" action="#{AeropuertoBean.eliminarAeropuerto(item)}"
+                                                 onclick="return confirm('Esta seguro?')" update=":frmAeropuertos:tblAeropuertos"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

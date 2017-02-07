@@ -6,9 +6,11 @@
 package com.aerolinea.dao;
 
 import com.aerolinea.entidad.Aeropuerto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,14 @@ public class AeropuertoFacade extends AbstractFacade<Aeropuerto> {
 
     public AeropuertoFacade() {
         super(Aeropuerto.class);
+    }
+    
+    public List<Aeropuerto> consultarAeropuertos(String descripcion){
+        //
+        Query q = em.createQuery("SELECT a FROM Aeropuerto a WHERE a.aeropuerto like" + " :aeropuerto");
+        
+        q.setParameter("aeropuerto", "%"+descripcion+"%");
+        return q.getResultList();
     }
     
 }
