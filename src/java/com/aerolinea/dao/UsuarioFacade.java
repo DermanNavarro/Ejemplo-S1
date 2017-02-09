@@ -6,9 +6,11 @@
 package com.aerolinea.dao;
 
 import com.aerolinea.entidad.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,14 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 
     public UsuarioFacade() {
         super(Usuario.class);
+    }
+    
+    public List<Usuario> consultarUsuarios(String nombres){
+        //
+        Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.nombres like" + " :nombres");
+        
+        q.setParameter("nombres", "%"+nombres+"%");
+        return q.getResultList();
     }
     
 }

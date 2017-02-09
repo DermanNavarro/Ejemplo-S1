@@ -6,9 +6,11 @@
 package com.aerolinea.dao;
 
 import com.aerolinea.entidad.Rol;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,4 +30,10 @@ public class RolFacade extends AbstractFacade<Rol> {
         super(Rol.class);
     }
     
+    public List<Rol> consultarRols(String nomRol){
+        Query q = em.createQuery("SELECT r FROM Rol r WHERE r.rol like" + " :nomRol");
+        
+        q.setParameter("nomRol", "%"+nomRol+"%");
+        return q.getResultList();
+    }
 }

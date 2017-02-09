@@ -13,18 +13,16 @@
                     <h:form>
                         <h1><h:outputText value="Aeropuerto Create/Edit"/></h1>
                         <h:panelGrid columns="2">
-                            <h:outputLabel value="Idaeropuerto:" for="idaeropuerto" />
-                            <h:inputText readonly="true" id="idaeropuerto" value="#{AeropuertoBean.aeropuerto.idaeropuerto}" title="Idaeropuerto" required="true" requiredMessage="The Idaeropuerto field is required."/>
-                            <h:outputLabel value="Aeropuerto:" for="aeropuerto" />
-                            <h:inputText id="aeropuerto" value="#{AeropuertoBean.aeropuerto.aeropuerto}" title="Aeropuerto" required="true" requiredMessage="The Aeropuerto field is required."/>
-                            <h:outputLabel value="Ciudad:" for="ciudad" />
-                            <h:inputText id="ciudad" value="#{AeropuertoBean.aeropuerto.ciudad}" title="Ciudad" required="true" requiredMessage="The Ciudad field is required."/>
-                            
-                            
-                            <h:outputLabel value="Idpais:" for="idpais" />
-                            <h:selectOneMenu id="idpais" value="#{AeropuertoBean.pais.idpais}" title="idpais" rendered="true" requiredMessage="Seleccione un pais">
+                            <p:outputLabel value="Idaeropuerto:" for="idaeropuerto" />
+                            <p:inputText readonly="true" id="idaeropuerto" value="#{AeropuertoBean.aeropuerto.idaeropuerto}" title="Idaeropuerto" required="true" requiredMessage="The Idaeropuerto field is required."/>
+                            <p:outputLabel value="Aeropuerto:" for="aeropuerto" />
+                            <p:inputText id="aeropuerto" value="#{AeropuertoBean.aeropuerto.aeropuerto}" title="Aeropuerto" required="true" requiredMessage="The Aeropuerto field is required."/>
+                            <p:outputLabel value="Ciudad:" for="ciudad" />
+                            <p:inputText id="ciudad" value="#{AeropuertoBean.aeropuerto.ciudad}" title="Ciudad" required="true" requiredMessage="The Ciudad field is required."/>
+                            <p:outputLabel value="Idpais:" for="idpais" />
+                            <p:selectOneMenu id="idpais" value="#{AeropuertoBean.pais.idpais}" title="idpais" rendered="true" requiredMessage="Seleccione un pais">
                                 <f:selectItems value="#{AeropuertoBean.paises}" var="c" itemLabel="#{c.pais}" itemValue="#{c.idpais}"/>
-                            </h:selectOneMenu>
+                            </p:selectOneMenu>
                             <p:commandButton value="Guardar" action="#{AeropuertoBean.guardar()}"/>
                             <p:commandButton value="Cancelar" action="AeropuertoLista.xhtml?faces-redirect=true"/>
                         </h:panelGrid>

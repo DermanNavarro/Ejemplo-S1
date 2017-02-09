@@ -26,4 +26,20 @@ public class controlUsuario {
     public List<Usuario> getAllUsuarios(){
         return usuarioFacade.findAll();
     }
+
+    public void guardarUsuario(Usuario a) {
+        usuarioFacade.create(a);
+    }
+
+    public void modificarUsuario(Usuario a) {
+        usuarioFacade.edit(a);
+    }
+
+    public void eliminarUsuario(Usuario a) {
+        usuarioFacade.remove(a);
+    }
+    
+    public List<Usuario> consultarUsuarios(String nom) {
+        return usuarioFacade.consultarUsuarios(nom);
+    }
 }
