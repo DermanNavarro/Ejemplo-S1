@@ -17,7 +17,10 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 
 /**
  *
@@ -62,15 +65,16 @@ public class UsuarioBean {
         pais = new Pais();
         return "UsuarioForm.xhtml?faces-redirect=true";
     }
-
+    
     public String guardar() {
-        rol = new Rol(usuario.getIdrol().getIdrol());
-        pais = new Pais(usuario.getIdpais().getIdpais());
         if (usuario.getIdusuario() == null) {
+
             usuario.setIdrol(rol);
             usuario.setIdpais(pais);
             controlUsuario.guardarUsuario(usuario);
         } else {
+            rol = new Rol(usuario.getIdrol().getIdrol());
+            pais = new Pais(usuario.getIdpais().getIdpais());
             usuario.setIdrol(rol);
             usuario.setIdpais(pais);
             controlUsuario.modificarUsuario(usuario);
@@ -80,6 +84,8 @@ public class UsuarioBean {
 
     public String seleccionarUsuario(Usuario a) {
         usuario = a;
+        pais = a.getIdpais();
+        rol=a.getIdrol();
         return "UsuarioForm.xhtml?faces-redirect=true";
     }
 

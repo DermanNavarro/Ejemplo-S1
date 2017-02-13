@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="77e9431b-553b-4ba1-bd87-156771a786ad">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha1" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha2" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\D\\DN\\Area ec-500\\www\\Ejemplo-S1\\web\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT 
+v.idvuelo,
+v.fecha
+FROM vuelo v
+WHERE
+v.fecha BETWEEN $P{fecha1} AND $P{fecha2}]]>
+	</queryString>
+	<field name="idvuelo" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="67" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="58" width="550" height="1" uuid="6ccf8d06-ca3b-45f4-bc27-89af78e7f6a1"/>
+			</line>
+			<staticText>
+				<reportElement x="6" y="39" width="102" height="20" uuid="73710372-f8ce-420c-b4e9-799f7f12ca5e"/>
+				<text><![CDATA[Aerolinea Aviones]]></text>
+			</staticText>
+			<image>
+				<reportElement x="2" y="6" width="127" height="33" uuid="1d78b154-696c-46b0-a612-2059e7f98ca4"/>
+				<imageExpression><![CDATA["logo-aviones.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="395" y="4" width="157" height="20" uuid="55de9815-c5b7-4445-a958-7c6d03a36ede"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<subreport>
+				<reportElement x="2" y="20" width="553" height="29" uuid="381943da-cfc7-4bd7-bd53-9eb626a98dc6"/>
+				<subreportParameter name="fecha">
+					<subreportParameterExpression><![CDATA[$F{fecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["ReporteVuelosSub.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="32" y="0" width="100" height="20" uuid="a4529e41-7229-472c-970f-301023f9f0c1"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="0" width="30" height="20" uuid="dbefe85e-b5ee-43a0-9f32-624e864b6d41"/>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="34" width="80" height="20" uuid="07b97f58-b85e-4105-987b-71cba6344870"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="34" width="40" height="20" uuid="92b1602f-8e21-45fd-bbf4-e7d2a08358d6"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

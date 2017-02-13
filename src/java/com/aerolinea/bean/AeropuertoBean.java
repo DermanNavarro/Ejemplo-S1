@@ -15,7 +15,10 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 
 /**
  *
@@ -35,13 +38,13 @@ public class AeropuertoBean {
     private Aeropuerto aeropuerto;
     private Pais pais;
     private String busqueda;
-
+    
     @PostConstruct
     public void init() {
         aeropuerto = new Aeropuerto();
         pais = new Pais();
     }
-
+    
     public AeropuertoBean() {
         busqueda = "";
     }
@@ -51,24 +54,25 @@ public class AeropuertoBean {
         pais = new Pais();
         return "AeropuertoForm.xhtml?faces-redirect=true";
     }
-
+    
     public String guardar() {
         if (aeropuerto.getIdaeropuerto() == null) {
-            aeropuerto.setIdpais(pais);
+            //aeropuerto.setIdpais(pais);
             controlAeropuerto.guardarAeropuerto(aeropuerto);
         } else {
-            pais = new Pais(aeropuerto.getIdpais().getIdpais());
-            aeropuerto.setIdpais(pais);
+            //pais = new Pais(aeropuerto.getIdpais().getIdpais());
+            //aeropuerto.setIdpais(pais);
             controlAeropuerto.modificarAeropuerto(aeropuerto);
         }
         return "AeropuertoLista.xhtml?faces-redirect=true";
     }
-
+    
     public String seleccionarAeropuerto(Aeropuerto a) {
         aeropuerto = a;
+        
         return "AeropuertoForm.xhtml?faces-redirect=true";
     }
-
+    
     public void eliminarAeropuerto(Aeropuerto a) {
         aeropuerto = a;
         controlAeropuerto.eliminarAeropuerto(aeropuerto);
@@ -80,42 +84,57 @@ public class AeropuertoBean {
         this.getAeropuertos();
         //return "AvionLista.xhtml?faces-redirect=true";
     }
+    
+    //generar convertidor para uso en los select
+    @FacesConverter(forClass = Pais.class)
+    public static class PaisConverter implements Converter{
 
+        @Override
+        public Object getAsObject(FacesContext context, UIComponent component, String value) {
+            return new Pais(Integer.parseInt(value));
+        }
+
+        @Override
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+            return ((Pais)value).getIdpais().toString();
+        }
+    }
+    
     public List<Aeropuerto> getAeropuertos() {
         //aeropuertos = controlAeropuerto.getAllAeropuertos();
         aeropuertos = controlAeropuerto.consultarAeropuertos(busqueda);
         return aeropuertos;
     }
-
+    
     public void setAeropuertos(List<Aeropuerto> aeropuertos) {
         this.aeropuertos = aeropuertos;
     }
-
+    
     /*public void consultar() {
         this.getAeropuertos();
     }*/
-
+    
     public List<Pais> getPaises() {
         paises = paisFacade.findAll();
         return paises;
     }
-
+    
     public void setPaises(List<Pais> paises) {
         this.paises = paises;
     }
-
+    
     public Aeropuerto getAeropuerto() {
         return aeropuerto;
     }
-
+    
     public void setAeropuerto(Aeropuerto aeropuerto) {
         this.aeropuerto = aeropuerto;
     }
-
+    
     public Pais getPais() {
         return pais;
     }
-
+    
     public void setPais(Pais pais) {
         this.pais = pais;
     }
@@ -127,5 +146,4 @@ public class AeropuertoBean {
     public void setBusqueda(String busqueda) {
         this.busqueda = busqueda;
     }
-
 }

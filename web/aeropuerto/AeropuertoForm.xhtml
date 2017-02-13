@@ -20,8 +20,8 @@
                             <p:outputLabel value="Ciudad:" for="ciudad" />
                             <p:inputText id="ciudad" value="#{AeropuertoBean.aeropuerto.ciudad}" title="Ciudad" required="true" requiredMessage="The Ciudad field is required."/>
                             <p:outputLabel value="Idpais:" for="idpais" />
-                            <p:selectOneMenu id="idpais" value="#{AeropuertoBean.pais.idpais}" title="idpais" rendered="true" requiredMessage="Seleccione un pais">
-                                <f:selectItems value="#{AeropuertoBean.paises}" var="c" itemLabel="#{c.pais}" itemValue="#{c.idpais}"/>
+                            <p:selectOneMenu id="idpais" value="#{AeropuertoBean.aeropuerto.idpais}" converter="#{PaisConverter}" title="idpais" required="true" requiredMessage="Seleccione un pais">
+                                <f:selectItems value="#{AeropuertoBean.paises}" var="c" itemLabel="#{c.pais}" itemValue="#{c}"/>
                             </p:selectOneMenu>
                             <p:commandButton value="Guardar" action="#{AeropuertoBean.guardar()}"/>
                             <p:commandButton value="Cancelar" action="AeropuertoLista.xhtml?faces-redirect=true"/>
