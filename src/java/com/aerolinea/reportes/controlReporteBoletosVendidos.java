@@ -25,7 +25,7 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 @ManagedBean
 @ViewScoped
-public class controlReporteVuelos {
+public class controlReporteBoletosVendidos {
 
     private Date fecha1;
     private Date fecha2;
@@ -57,21 +57,21 @@ public class controlReporteVuelos {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
+    
     @PostConstruct
     public void init() {
         ConexionPool c = new ConexionPool();
         c.conectar();
         conn = c.getConexion();
     }
-
-    public controlReporteVuelos() {
+    
+    public controlReporteBoletosVendidos() {
     }
-
+    
     public void generarReporte() throws JRException, IOException {
 
         ServletContext sc = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String reportePath = sc.getRealPath("reportes/ReporteVuelos.jasper");
+        String reportePath = sc.getRealPath("reportes/Boletos/ReporteBoletosVendidos.jasper");
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("fecha1", fecha1);
         parametros.put("fecha2", fecha2);
